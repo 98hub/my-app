@@ -21,6 +21,6 @@ jobs:
             cd /home/jelastic/ROOT
             git pull origin master
             git status
-            npm install --force
-            npm run build
+            NODE_ENV=development npm install --force
+            NODE_ENV=production npm run build
             pm2 restart 0
