@@ -13,8 +13,8 @@ Aplikasi ini adalah proyek demo untuk menunjukkan implementasi Continuous Integr
 1. **Clone repository ini**
 
    ```bash
-   git clone https://github.com/98hub/just-nextjs.git
-   cd just-nextjs
+   git clone https://github.com/98hub/my-app.git
+   cd my-app
    ```
 
 2. **Install dependencies**
