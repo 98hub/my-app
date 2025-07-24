@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Langkah 1: Menyiapkan SSH Key agar bisa digunakan oleh perintah ssh
+      # Langkah 1: Tetap menggunakan ssh-agent untuk memuat kunci
       - name: Setup SSH Key
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
 
-      # Langkah 2: Menjalankan perintah SSH secara langsung
+      # Langkah 2: Mengirim perintah melalui "echo" dan "pipe" ke SSH dengan flag -t
       - name: Connect and Deploy
         run: |
-          ssh -o StrictHostKeyChecking=no -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} "jel_exec --nodeId 61715 \"cd /home/jelastic/ROOT && git pull origin master && npm ci && npm run build && pm2 restart my-app\""
+          echo "jel_exec --nodeId 61715 'cd /home/jelastic/ROOT && git pull origin master && npm ci && npm run build && pm2 restart my-app'" | ssh -t -o StrictHostKeyChecking=no -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }}
