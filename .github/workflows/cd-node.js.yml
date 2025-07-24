@@ -9,18 +9,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
       - name: Deploy using ssh
         uses: appleboy/ssh-action@master
         with: 
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }} 
-          port: 22
+          port: ${{ secrets.PORT }}
+
+          # Skrip dibungkus dengan jel_exec agar berjalan di node yang benar
           script: |
-            cd /home/jelastic/ROOT
-            git pull origin master
-            git status
-            NODE_ENV=development npm install --force
-            NODE_ENV=production npm run build
-            pm2 restart 0
+            jel_exec --nodeId 61715 << 'EOL'
+              cd /home/jelastic/ROOT
+              git pull origin master
+              echo "--- Git status after pull ---"
+              git status
+              echo "--- Installing dependencies ---"
+              npm ci --omit=dev
+              echo "--- Building application ---"
+              npm run build
+              echo "--- Restarting PM2 application ---"
+              pm2 restart my-app
+            EOL
