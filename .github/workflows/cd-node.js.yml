@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Execute Deployment via Jelastic API
         env:
-          JELASTIC_API_HOST: app.dewacloud.com # Host API DewaCloud
+          JELASTIC_API_HOST: app.jkt01.dewaweb.com # Host API DewaCloud
           JELASTIC_USERNAME: ${{ secrets.USERNAME }}
           JELASTIC_PASSWORD: ${{ secrets.JELASTIC_PASSWORD }}
           ENV_NAME: ${{ secrets.ENV_NAME }}
