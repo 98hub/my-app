@@ -5,18 +5,17 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@master
-        with: 
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY }} 
-          port: ${{ secrets.PORT }}
+      # Langkah 1: Menyiapkan SSH Key agar bisa digunakan oleh perintah ssh
+      - name: Setup SSH Key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
 
-          # Skrip diubah menjadi satu baris dengan && untuk eksekusi yang andal
-          script: |
-            jel_exec --nodeId 61715 "cd /home/jelastic/ROOT && git pull origin master && npm ci && npm run build && pm2 restart my-app"
+      # Langkah 2: Menjalankan perintah SSH secara langsung
+      - name: Connect and Deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} "jel_exec --nodeId 61715 \"cd /home/jelastic/ROOT && git pull origin master && npm ci && npm run build && pm2 restart my-app\""
