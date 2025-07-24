@@ -18,4 +18,4 @@ jobs:
       # Langkah 2: Mengirim perintah melalui "echo" dan "pipe" ke SSH dengan flag -t
       - name: Connect and Deploy
         run: |
-          echo "jel_exec --nodeId 61715 'cd /home/jelastic/ROOT && git pull origin master && npm ci && npm run build && pm2 restart my-app'" | ssh -t -o StrictHostKeyChecking=no -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }}
+          echo "jel_exec --nodeId 61715 'cd /home/jelastic/ROOT && git pull origin master && npm ci && npm run build && pm2 restart my-app'" | ssh -tt -o StrictHostKeyChecking=no -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }}
