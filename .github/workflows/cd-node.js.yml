@@ -17,19 +17,15 @@ jobs:
           NODE_ID: 61715
 
         run: |
-          echo "Preparing JSON command list..."
-          # Membuat format JSON untuk commandList
+          echo "Preparing chained command JSON..."
+          # Menggabungkan semua perintah menjadi satu string dengan '&&' untuk eksekusi berurutan
+          # Menambahkan --include=dev pada npm ci
           COMMAND_JSON='[
-            {"command": "cd /home/jelastic/ROOT"},
-            {"command": "git pull origin master"},
-            {"command": "npm ci"},
-            {"command": "npm run build"},
-            {"command": "pm2 restart my-app"}
+            {"command": "cd /home/jelastic/ROOT && git pull origin master && npm ci --include=dev && npm run build && pm2 restart my-app"}
           ]'
 
           echo "Executing remote commands via API..."
           
-          # Menggunakan path dan parameter yang benar sesuai dokumentasi
           API_RESPONSE=$(curl -sk "https://${JELASTIC_API_HOST}/1.0/environment/control/rest/execcmdbyid" \
             --data-urlencode "session=${JELASTIC_TOKEN}" \
             --data-urlencode "envname=${ENV_NAME}" \
@@ -44,7 +40,6 @@ jobs:
             exit 1
           fi
           
-          # Mengambil dan menampilkan output dari setiap perintah
           COMMAND_OUTPUTS=$(echo $API_RESPONSE | jq -r .responses)
           echo "--- Deployment Script Output ---"
           echo "$COMMAND_OUTPUTS"
