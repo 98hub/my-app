@@ -18,10 +18,9 @@ jobs:
 
         run: |
           echo "Preparing chained command JSON..."
-          # Menggabungkan semua perintah menjadi satu string dengan '&&' untuk eksekusi berurutan
-          # Menambahkan --include=dev pada npm ci
+
           COMMAND_JSON='[
-            {"command": "cd /home/jelastic/ROOT && git pull origin master && npm ci --include=dev && npm run build && pm2 restart my-app"}
+            {"command": "cd /home/jelastic/ROOT && git pull origin master && npm ci --include=dev --loglevel error && npm run build && pm2 restart my-app"}
           ]'
 
           echo "Executing remote commands via API..."
