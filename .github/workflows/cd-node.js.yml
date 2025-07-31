@@ -22,7 +22,7 @@ jobs:
           echo "Executing remote commands using Access Token..."
 
           # MENGGANTI parameter 'token=' menjadi 'session='
-          API_RESPONSE=$(curl -sk "https://${JELASTIC_API_HOST}/1.0/environment/control/execmdbyid" --data-urlencode "session=${JELASTIC_TOKEN}" --data-urlencode "envname=${ENV_NAME}" --data-urlencode "nodeid=${NODE_ID}" --data-urlencode "command=${COMMANDS_TO_RUN}")
+          API_RESPONSE=$(curl -sk "https://${JELASTIC_API_HOST}/1.0/environment/control/rest/execmdbyid" --data-urlencode "session=${JELASTIC_TOKEN}" --data-urlencode "envname=${ENV_NAME}" --data-urlencode "nodeid=${NODE_ID}" --data-urlencode "command=${COMMANDS_TO_RUN}")
 
           echo "API Response: $API_RESPONSE"
 
