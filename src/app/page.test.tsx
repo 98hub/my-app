@@ -7,10 +7,10 @@ describe('Home Page', () => {
     it('renders expected content', () => {
         render(<Home />);
 
-        // 1. Get started by editing src/app/page.js.
+        // 1. Sign up to Dewacloud Academy!
         expect(
             screen.getByText((_, element) =>
-                element?.textContent === 'Get started by editing src/app/page.js.'
+                element?.textContent === 'Sign up to Dewacloud Academy!'
             )
         ).toBeInTheDocument();
 

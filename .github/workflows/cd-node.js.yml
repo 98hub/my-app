@@ -24,6 +24,10 @@ jobs:
           ]'
 
           echo "Executing remote commands via API..."
+
+          # Using Jelastic API to execute commands on the specified node
+          # API Reference:
+          # https://docs.jelastic.com/api/8.4.1/public/#!/api/environment.Control-method-ExecCmdById
           
           API_RESPONSE=$(curl -sk "https://${JELASTIC_API_HOST}/1.0/environment/control/rest/execcmdbyid" \
             --data-urlencode "session=${JELASTIC_TOKEN}" \
