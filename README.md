@@ -50,6 +50,28 @@ Proyek ini telah terintegrasi dengan GitHub Actions untuk:
 
 Workflow GitHub Actions disimpan di folder `.github/workflows/` dan dapat dimodifikasi sesuai kebutuhan.
 
+1. **Ubah terlebih dahulu ke branch update**
+
+   ```bash
+   git switch update
+
+   #perintah ini akan menjalankan pergantian branch dari master ke update
+   ```
+
+2. **Lakukan perubahan yang diinginkan pada file page.tsx dan page.test.tsx**
+
+   ```bash
+   #jika perubahan sudah dilakukan lakukan perintah ini pada terminal
+
+   git add .
+   git commit -m "Update view for CI/CD Testing"
+   git push origin update
+   ```
+
+3. **Proses CI/CD bisa di lihat pada halaman / website github repository nya**
+
+
+
 ## 📁 Struktur Dasar Proyek
 
 ```
