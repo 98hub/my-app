@@ -16,8 +16,8 @@ describe('Home Page', () => {
 
         // 2. Save and see your changes instantly!
         expect(
-            // screen.getByText('Hello World!')
-            screen.getByText('Save and see your changes instantly!')
+            screen.getByText('Hello World!')
+            // screen.getByText('Save and see your changes instantly!')
         ).toBeInTheDocument();
 
         // 3. This app uses for CI/CD demonstration purposes only 🚀
